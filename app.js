@@ -22,16 +22,15 @@ function start() {
     
     promised_data.then( (data) => {
         data.forEach(isert_item);
+        conn.end();
     });
-    
-    conn.end();
-
 }
 
 function insert_item (item) {
     conn.query('INSERT INTO book SET ?', item, (err, res) => {
         if (err) {
             return console.error('error on database insertion: ' + err.stack);
+            conn.end();
         }
     });
 }
