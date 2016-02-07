@@ -6,7 +6,10 @@ const config = require('./config');
 const client = new mockaroo.Client({
     apiKey: config.mockaroo_key
 });
-
+const promised_data = client.generate({
+        count: 1000,
+        schema: 'bookschema'
+});
 const conn = mysql.createConnection({
     host: 'localhost',
     user: config.db.user,
@@ -14,18 +17,23 @@ const conn = mysql.createConnection({
     database: config.db.database,
 });
 
-conn.connect();
-
-client.generate({
-    count: 1000,
-    schema: 'bookschema'
-}).then( (data) => {
-    data.forEach( (item) => {
-        conn.query('INSERT INTO book SET ?', item, (err, res) => {
-            if (err) {
-                return console.error('error on database insertion: ' + err.stack);
-            }
-        });
+function start() {
+    conn.connect();
+    
+    promised_data.then( (data) => {
+        data.forEach(isert_item);
     });
+    
     conn.end();
-});
+
+}
+
+function insert_item (item) {
+    conn.query('INSERT INTO book SET ?', item, (err, res) => {
+        if (err) {
+            return console.error('error on database insertion: ' + err.stack);
+        }
+    });
+}
+
+start();
