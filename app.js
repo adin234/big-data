@@ -8,8 +8,8 @@ const client = new mockaroo.Client({
 });
 
 const conn = mysql.createConnection({
-    host: 'localhost',
-    user: config.db.user,
+    host: config.db.host,
+    user: config.db.username,
     password: config.db.password,
     database: config.db.database,
 });
