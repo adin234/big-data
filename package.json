@@ -12,5 +12,6 @@
     "anytv-node-mysql": "0.0.46",
     "mockaroo": "^0.1.7",
     "mysql": "^2.10.2"
-  }
+  },
+  "repository": "https://github.com/FerrielMelarpis/big-data.git"
 }
