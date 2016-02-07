@@ -1,10 +1,14 @@
 var mockaroo = require('mockaroo'),
     mysql = require('mysql');
+if(!process.argv[2] || !process.argv[3] || !process.argv[4]) {
+    console.error('Missing argument. Format : node app <username> <password> <dbname>');
+    return;
+}
 var conn = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: '2012-01065',
-    database: 'db1',
+    user: process.argv[2],
+    password: process.argv[3],
+    database: process.argv[4],
 });
 conn.connect();
 var client = new mockaroo.Client({
