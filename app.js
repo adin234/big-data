@@ -12,7 +12,7 @@ const promised_data = client.generate({
 });
 const conn = mysql.createConnection({
     host: 'localhost',
-    user: config.db.user,
+    user: config.db.username,
     password: config.db.password,
     database: config.db.database,
 });
@@ -22,7 +22,6 @@ function start() {
     
     promised_data.then( (data) => {
         data.forEach(insert_item);
-        conn.end();
     });
 }
 
