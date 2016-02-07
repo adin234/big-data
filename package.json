@@ -1,0 +1,15 @@
+{
+  "name": "191",
+  "version": "1.0.0",
+  "description": "cmsc 191 data generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Ferriel Melarpis",
+  "license": "MIT",
+  "dependencies": {
+    "anytv-node-mysql": "0.0.46",
+    "mysql": "^2.10.2"
+  }
+}
