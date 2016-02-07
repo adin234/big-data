@@ -21,7 +21,7 @@ function start() {
     conn.connect();
     
     promised_data.then( (data) => {
-        data.forEach(isert_item);
+        data.forEach(insert_item);
         conn.end();
     });
 }
