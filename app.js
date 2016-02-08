@@ -18,7 +18,7 @@ conn.connect();
 
 client.generate({
     count: 1000,
-    schema: 'bookschema'
+    schema: config.db.schema
 }).then( (data) => {
     data.forEach( (item) => {
         conn.query('INSERT INTO book SET ?', item, (err, res) => {
