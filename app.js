@@ -14,18 +14,37 @@ const conn = mysql.createConnection({
     database: config.db.database,
 });
 
-conn.connect();
+const maxData = 1000;
+let i = 0;
 
-client.generate({
-    count: 1000,
-    schema: config.db.schema
-}).then( (data) => {
+function start () {
+    conn.connect();
+    generateData();
+}
+
+function generateData() {
+    client.generate({
+        count: maxData,
+        schema: config.db.schema
+    }).then(insertData);
+}
+
+function insertData (data) {
     data.forEach( (item) => {
-        conn.query('INSERT INTO book SET ?', item, (err, res) => {
-            if (err) {
-                return console.error('error on database insertion: ' + err.stack);
-            }
-        });
+        conn.query('INSERT INTO book SET ?', item, end);
     });
-    conn.end();
-});
+}
+
+function end (err, res) {
+    ++i;
+    
+    if (err) {
+        return console.error('error on database insertion: ' + err.stack);
+    }
+    
+    if (i === maxData) {
+        conn.end();
+    }
+}
+
+start();
